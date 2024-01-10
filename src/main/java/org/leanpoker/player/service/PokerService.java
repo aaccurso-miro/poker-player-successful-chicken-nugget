@@ -18,6 +18,9 @@ public class PokerService {
 
     public Integer prepareBet(GameStatePOJO gameStatePOJO) {
         var ourPlayer = gameStatePOJO.getPlayers().stream().filter(player -> player.getName().equals(SUCCESSFUL_CHICKEN_NUGGET)).findFirst();
+        var betToMatch = gameStatePOJO.getCurrent_buy_in() - ourPlayer.get().getBet();
+        var maxRaiseForLowHand = gameStatePOJO.getSmall_blind() * 10;
+
 
         List<CardPOJO> cards = ourPlayer.get().getHole_cards();
         CardPOJO firstCard = cards.get(0);
@@ -66,16 +69,18 @@ public class PokerService {
             }
         }
 
+
+        // Two high cards
         if (firstCard.getRank().ordinal() >= 9 && secondCard.getRank().ordinal() >= 9) {
-            return gameStatePOJO.getCurrent_buy_in() == 0 ? gameStatePOJO.getSmall_blind() * 4 : gameStatePOJO.getCurrent_buy_in();
+            return betToMatch == 0 ? gameStatePOJO.getSmall_blind() * 4 : gameStatePOJO.getCurrent_buy_in();
         }
 
-
+        // One low card and one high card
         if (firstCard.getRank().ordinal() >= 9 || secondCard.getRank().ordinal() >= 9) {
-            if (gameStatePOJO.getMinimum_raise() >= ourPlayer.get().getStack() / 2) {
-                return 0;
-            }
-            return gameStatePOJO.getCurrent_buy_in() == 0 ? gameStatePOJO.getSmall_blind(): 0;
+            // We fold if bet to match is higher than we want
+            var bet = betToMatch > maxRaiseForLowHand ? 0 : betToMatch;
+            // We raise if no one else raised
+            return betToMatch == 0 ? gameStatePOJO.getSmall_blind() * 2 : bet;
         }
 
         return 0;

@@ -25,8 +25,5 @@ public class Player {
     }
 
     public static void showdown(JsonNode game) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        GameStatePOJO gameStatePOJO = objectMapper.treeToValue(game, GameStatePOJO.class);
-
     }
 }

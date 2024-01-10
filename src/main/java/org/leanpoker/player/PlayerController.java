@@ -28,12 +28,15 @@ public class PlayerController {
         String action = body.get("action");
         String gameState = body.get("game_state");
         if ("bet_request".equals(action)) {
+            System.out.println("BET CALL");
             return String.valueOf(Player.betRequest(mapper.readTree(gameState)));
         }
         if ("showdown".equals(action)) {
+            System.out.println("SHOWDOWN CALL");
             Player.showdown(mapper.readTree(gameState));
         }
         if ("version".equals(action)) {
+            System.out.println("VERSION CHECK");
             return Player.VERSION;
         }
         return "";

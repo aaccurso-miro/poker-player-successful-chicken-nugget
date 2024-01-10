@@ -4,6 +4,7 @@ import java.util.List;
 public class GameStatePOJO {
     private String tournament_id;
     private String game_id;
+
     private int round;
     private int bet_index;
 
@@ -122,5 +123,24 @@ public class GameStatePOJO {
     private List<CardPOJO> community_card;
 
     // Getter and Setter methods
+
+    @Override
+    public String toString() {
+        return "GameStatePOJO{" +
+                "tournament_id='" + tournament_id + '\'' +
+                ", game_id='" + game_id + '\'' +
+                ", round=" + round +
+                ", bet_index=" + bet_index +
+                ", small_blind=" + small_blind +
+                ", current_buy_in=" + current_buy_in +
+                ", pot=" + pot +
+                ", minimum_raise=" + minimum_raise +
+                ", dealer=" + dealer +
+                ", orbits=" + orbits +
+                ", in_action=" + in_action +
+                ", players=" + players +
+                ", community_card=" + community_card +
+                '}';
+    }
 }
 

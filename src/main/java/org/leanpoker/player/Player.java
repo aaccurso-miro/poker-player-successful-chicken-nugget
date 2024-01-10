@@ -18,7 +18,14 @@ public class Player {
     public static int betRequest(JsonNode request) throws JsonProcessingException {
 
         System.out.println(request.toString());
-        GameStatePOJO gameStatePOJO = objectMapper.treeToValue(request, GameStatePOJO.class);
+        GameStatePOJO gameStatePOJO = new GameStatePOJO();
+        try {
+            objectMapper.treeToValue(request, GameStatePOJO.class);
+            return pokerService.prepareBet(gameStatePOJO);
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+        
 
         System.out.println("Tournament ID: " + gameStatePOJO.getTournament_id());
         System.out.println("Game ID: " + gameStatePOJO.getGame_id());

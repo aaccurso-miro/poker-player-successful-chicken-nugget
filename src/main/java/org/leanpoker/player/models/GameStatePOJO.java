@@ -104,15 +104,18 @@ public class GameStatePOJO {
         this.players = players;
     }
 
-    public List<CardPOJO> getCommunity_card() {
-        return community_card;
+    public List<CardPOJO> getCommunity_cards() {
+        return community_cards;
     }
 
-    public void setCommunity_card(List<CardPOJO> community_card) {
-        this.community_card = community_card;
+    public void setCommunity_cards(List<CardPOJO> community_cards) {
+        this.community_cards = community_cards;
     }
 
     private int small_blind;
+
+    private int big_blind;
+
     private int current_buy_in;
     private int pot;
     private int minimum_raise;
@@ -120,7 +123,7 @@ public class GameStatePOJO {
     private int orbits;
     private int in_action;
     private List<PlayerPOJO> players;
-    private List<CardPOJO> community_card;
+    private List<CardPOJO> community_cards;
 
     // Getter and Setter methods
 
@@ -139,8 +142,16 @@ public class GameStatePOJO {
                 ", orbits=" + orbits +
                 ", in_action=" + in_action +
                 ", players=" + players +
-                ", community_card=" + community_card +
+                ", community_card=" + community_cards +
                 '}';
+    }
+
+    public int getBig_blind() {
+        return big_blind;
+    }
+
+    public void setBig_blind(int big_blind) {
+        this.big_blind = big_blind;
     }
 }
 

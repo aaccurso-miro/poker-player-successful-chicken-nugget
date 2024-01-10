@@ -18,8 +18,7 @@ public class Player {
     public static int betRequest(JsonNode request) throws JsonProcessingException {
         try {
             System.out.println(request.toString());
-            GameStatePOJO gameStatePOJO = new GameStatePOJO();
-            objectMapper.treeToValue(request, GameStatePOJO.class);
+            GameStatePOJO gameStatePOJO = objectMapper.treeToValue(request, GameStatePOJO.class);
             System.out.println("Tournament ID: " + gameStatePOJO.getTournament_id());
             System.out.println("Game ID: " + gameStatePOJO.getGame_id());
             return pokerService.prepareBet(gameStatePOJO);

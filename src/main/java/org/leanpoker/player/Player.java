@@ -16,23 +16,16 @@ public class Player {
 
 
     public static int betRequest(JsonNode request) throws JsonProcessingException {
-
-        System.out.println(request.toString());
-        GameStatePOJO gameStatePOJO = new GameStatePOJO();
         try {
+            System.out.println(request.toString());
+            GameStatePOJO gameStatePOJO = new GameStatePOJO();
             objectMapper.treeToValue(request, GameStatePOJO.class);
+            System.out.println("Tournament ID: " + gameStatePOJO.getTournament_id());
+            System.out.println("Game ID: " + gameStatePOJO.getGame_id());
             return pokerService.prepareBet(gameStatePOJO);
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
+            return 200;
         }
-        
-
-        System.out.println("Tournament ID: " + gameStatePOJO.getTournament_id());
-        System.out.println("Game ID: " + gameStatePOJO.getGame_id());
-
-        return pokerService.prepareBet(gameStatePOJO);
-    }
-
-    public static void showdown(JsonNode game) throws JsonProcessingException {
     }
 }

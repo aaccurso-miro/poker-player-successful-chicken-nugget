@@ -15,13 +15,14 @@ public class Player {
     public static int betRequest(JsonNode request) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
 
+        System.out.println(request.toString());
         GameStatePOJO gameStatePOJO = objectMapper.treeToValue(request, GameStatePOJO.class);
-
+        return 0;
         // Now you can work with the GameStatePOJO object
-        System.out.println("Tournament ID: " + gameStatePOJO.getTournament_id());
-        System.out.println("Game ID: " + gameStatePOJO.getGame_id());
+//        System.out.println("Tournament ID: " + gameStatePOJO.getTournament_id());
+//        System.out.println("Game ID: " + gameStatePOJO.getGame_id());
 
-        return pokerService.prepareBet(gameStatePOJO);
+//        return pokerService.prepareBet(gameStatePOJO);
     }
 
     public static void showdown(JsonNode game) throws JsonProcessingException {

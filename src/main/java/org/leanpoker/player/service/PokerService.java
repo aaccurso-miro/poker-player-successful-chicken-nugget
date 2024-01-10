@@ -59,7 +59,7 @@ public class PokerService {
             if (gameStatePOJO.getMinimum_raise() >= ourPlayer.get().getStack() / 2) {
                 return 0;
             }
-            return gameStatePOJO.getCurrent_buy_in() == 0 ? gameStatePOJO.getSmall_blind(): gameStatePOJO.getCurrent_buy_in();
+            return gameStatePOJO.getCurrent_buy_in() == 0 ? gameStatePOJO.getSmall_blind(): 0;
         }
 
         return 0;

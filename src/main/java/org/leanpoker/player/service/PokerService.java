@@ -1,11 +1,16 @@
 package org.leanpoker.player.service;
 
 import org.leanpoker.player.models.CardPOJO;
+import org.leanpoker.player.models.CardRank;
+import org.leanpoker.player.models.CardSuit;
 import org.leanpoker.player.models.GameStatePOJO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class PokerService {
 
@@ -18,7 +23,21 @@ public class PokerService {
         CardPOJO firstCard = cards.get(0);
         CardPOJO secondCard = cards.get(1);
         var communityCards = getCommunityCards(gameStatePOJO);
-        var allCards = communityCards.addAll(List.of(firstCard, secondCard));
+        communityCards.addAll(List.of(firstCard, secondCard));
+
+        Map<CardRank, Long> collectByRank = communityCards.stream().collect(Collectors.groupingBy(CardPOJO::getRank, Collectors.counting()));
+        Map<CardSuit, Long> collectBySuit = communityCards.stream().collect(Collectors.groupingBy(CardPOJO::getSuit, Collectors.counting()));
+
+        // triple or more
+        if (collectByRank.containsValue(3) || collectByRank.containsValue(4)){
+            return ourPlayer.get().getStack();
+        }
+
+        //flush
+        if (collectBySuit.containsValue(5)) {
+            return ourPlayer.get().getStack();
+        }
+
 
         if (firstCard.getRank().equals(secondCard.getRank())) {
             if (gameStatePOJO.getCurrent_buy_in() == 0) {
@@ -29,7 +48,6 @@ public class PokerService {
                 return gameStatePOJO.getCurrent_buy_in();
             }
         }
-
 
 
         if (firstCard.getRank().ordinal() >= 9 && secondCard.getRank().ordinal() >= 9) {

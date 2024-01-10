@@ -22,14 +22,17 @@ public class PokerService {
         List<CardPOJO> cards = ourPlayer.get().getHole_cards();
         CardPOJO firstCard = cards.get(0);
         CardPOJO secondCard = cards.get(1);
+        var ourCards = List.of(firstCard, secondCard);
         var communityCards = getCommunityCards(gameStatePOJO);
         communityCards.addAll(List.of(firstCard, secondCard));
 
         Map<CardRank, Long> collectByRank = communityCards.stream().collect(Collectors.groupingBy(CardPOJO::getRank, Collectors.counting()));
         Map<CardSuit, Long> collectBySuit = communityCards.stream().collect(Collectors.groupingBy(CardPOJO::getSuit, Collectors.counting()));
 
+        boolean doublesOrTriplesWithOurCards = checkDoublesOrTripletsIncludingOurCards(ourCards, communityCards);
         // triple or more
-        if (collectByRank.containsValue(3) || collectByRank.containsValue(4)){
+        boolean triplesOrMore = collectByRank.containsValue(3) || collectByRank.containsValue(4);
+        if (doublesOrTriplesWithOurCards && triplesOrMore){
             return ourPlayer.get().getStack();
         }
         var doublesOrTriplesCount = collectByRank.entrySet()
@@ -37,7 +40,7 @@ public class PokerService {
                 .filter(entry -> entry.getValue() >= 2)
                 .toList()
                 .size();
-        if (doublesOrTriplesCount >= 2){
+        if (doublesOrTriplesWithOurCards && doublesOrTriplesCount >= 2){
             return ourPlayer.get().getStack();
         }
 
@@ -63,7 +66,6 @@ public class PokerService {
             }
         }
 
-
         if (firstCard.getRank().ordinal() >= 9 && secondCard.getRank().ordinal() >= 9) {
             return gameStatePOJO.getCurrent_buy_in() == 0 ? gameStatePOJO.getSmall_blind() * 4 : gameStatePOJO.getCurrent_buy_in();
         }
@@ -79,9 +81,21 @@ public class PokerService {
         return 0;
     }
 
+    private static boolean checkDoublesOrTripletsIncludingOurCards(List<CardPOJO> ourCards, List<CardPOJO> communityCards) {
+        var communityCardsRanks = communityCards
+                .stream()
+                .map(CardPOJO::getRank)
+                .collect(Collectors.toList());
+        var ourCardsRanks = ourCards.stream().map(CardPOJO::getRank).collect(Collectors.toList());
+        var size = ourCardsRanks.stream()
+                .filter(card -> communityCardsRanks.contains(card))
+                .collect(Collectors.toList())
+                .size();
+        System.out.println(size);
+        return size>=2;
+    }
+
     private static List<CardPOJO> getCommunityCards(GameStatePOJO gameStatePOJO) {
         return Objects.isNull(gameStatePOJO.getCommunity_cards()) ? new ArrayList<>() : gameStatePOJO.getCommunity_cards();
     }
-
-
 }

@@ -34,7 +34,7 @@ public class PokerService {
         }
 
         //flush
-        if (collectBySuit.containsValue(5)) {
+        if (collectBySuit.containsValue(5) || collectBySuit.containsValue(6) || collectBySuit.containsValue(7)) {
             return ourPlayer.get().getStack();
         }
 

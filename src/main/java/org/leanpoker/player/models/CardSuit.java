@@ -1,5 +1,7 @@
 package org.leanpoker.player.models;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum CardSuit {
     CLUBS("clubs"),
     SPADES("spades"),
@@ -12,6 +14,7 @@ public enum CardSuit {
         this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
         return value;
     }

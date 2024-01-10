@@ -1,5 +1,7 @@
 package org.leanpoker.player.models;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum CardRank {
     TWO("2"),
     THREE("3"),
@@ -20,7 +22,7 @@ public enum CardRank {
     CardRank(String value) {
         this.value = value;
     }
-
+    @JsonValue
     public String getValue() {
         return value;
     }

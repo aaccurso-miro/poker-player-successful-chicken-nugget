@@ -56,6 +56,9 @@ public class PokerService {
 
 
         if (firstCard.getRank().ordinal() >= 9 || secondCard.getRank().ordinal() >= 9) {
+            if (gameStatePOJO.getMinimum_raise() >= ourPlayer.get().getStack() / 2) {
+                return 0;
+            }
             return gameStatePOJO.getCurrent_buy_in() == 0 ? gameStatePOJO.getSmall_blind(): gameStatePOJO.getCurrent_buy_in();
         }
 

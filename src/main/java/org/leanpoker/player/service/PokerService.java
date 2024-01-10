@@ -32,6 +32,14 @@ public class PokerService {
         if (collectByRank.containsValue(3) || collectByRank.containsValue(4)){
             return ourPlayer.get().getStack();
         }
+        var doublesOrTriplesCount = collectByRank.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() >= 2)
+                .toList()
+                .size();
+        if (doublesOrTriplesCount >= 2){
+            return ourPlayer.get().getStack();
+        }
 
         //flush
         if (collectBySuit.containsValue(5) || collectBySuit.containsValue(6) || collectBySuit.containsValue(7)) {

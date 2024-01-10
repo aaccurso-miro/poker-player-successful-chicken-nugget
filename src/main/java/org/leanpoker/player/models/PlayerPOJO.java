@@ -6,7 +6,22 @@ public class PlayerPOJO {
     private int id;
     private String name;
     private String status;
+    private String version;
+    private int stack;
+    private int bet;
+    private List<CardPOJO> hole_cards;
 
+    private int time_used;
+
+    public int getTime_used() {
+        return time_used;
+    }
+
+    public void setTime_used(int time_used) {
+        this.time_used = time_used;
+    }
+
+    // Getter and Setter methods
     public int getId() {
         return id;
     }
@@ -63,10 +78,4 @@ public class PlayerPOJO {
         this.hole_cards = hole_cards;
     }
 
-    private String version;
-    private int stack;
-    private int bet;
-    private List<CardPOJO> hole_cards;
-
-    // Getter and Setter methods
 }

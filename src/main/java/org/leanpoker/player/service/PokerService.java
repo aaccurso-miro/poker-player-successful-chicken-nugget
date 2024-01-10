@@ -3,7 +3,9 @@ package org.leanpoker.player.service;
 import org.leanpoker.player.models.CardPOJO;
 import org.leanpoker.player.models.GameStatePOJO;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PokerService {
 
@@ -15,6 +17,8 @@ public class PokerService {
         List<CardPOJO> cards = ourPlayer.get().getHole_cards();
         CardPOJO firstCard = cards.get(0);
         CardPOJO secondCard = cards.get(1);
+        var communityCards = getCommunityCards(gameStatePOJO);
+        var allCards = communityCards.addAll(List.of(firstCard, secondCard));
 
         if (firstCard.getRank().equals(secondCard.getRank())) {
             if (gameStatePOJO.getCurrent_buy_in() == 0) {
@@ -39,4 +43,10 @@ public class PokerService {
 
         return 0;
     }
+
+    private static List<CardPOJO> getCommunityCards(GameStatePOJO gameStatePOJO) {
+        return Objects.isNull(gameStatePOJO.getCommunity_cards()) ? new ArrayList<>() : gameStatePOJO.getCommunity_cards();
+    }
+
+
 }

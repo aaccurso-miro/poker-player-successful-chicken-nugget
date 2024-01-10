@@ -48,6 +48,12 @@ public class PokerService {
 
 
         if (firstCard.getRank().equals(secondCard.getRank())) {
+
+            if (firstCard.getRank().ordinal() >= 9 && secondCard.getRank().ordinal() >= 9) {
+                return ourPlayer.get().getStack();
+            }
+
+
             if (gameStatePOJO.getCurrent_buy_in() == 0) {
                 System.out.println("No buy in, betting 4x small blind:["+gameStatePOJO.getSmall_blind() * 4+"]");
                 return gameStatePOJO.getSmall_blind() * 4;

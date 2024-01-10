@@ -55,18 +55,18 @@ public class PlayerPOJO {
         this.bet = bet;
     }
 
-    public List<CardPOJO> getHole_cardPOJOS() {
-        return hole_cardPOJOS;
+    public List<CardPOJO> getHole_cards() {
+        return hole_cards;
     }
 
-    public void setHole_cardPOJOS(List<CardPOJO> hole_cardPOJOS) {
-        this.hole_cardPOJOS = hole_cardPOJOS;
+    public void setHole_cards(List<CardPOJO> hole_cards) {
+        this.hole_cards = hole_cards;
     }
 
     private String version;
     private int stack;
     private int bet;
-    private List<CardPOJO> hole_cardPOJOS;
+    private List<CardPOJO> hole_cards;
 
     // Getter and Setter methods
 }

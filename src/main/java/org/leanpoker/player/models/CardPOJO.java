@@ -5,6 +5,11 @@ public class CardPOJO {
     // numbers 2-10 and J,Q,K,A
     private CardRank rank;
 
+
+    // Suit of the card. Possible values are:
+    // clubs,spades,hearts,diamonds
+    private CardSuit suit;
+
     public CardRank getRank() {
         return rank;
     }
@@ -21,9 +26,6 @@ public class CardPOJO {
         this.suit = suit;
     }
 
-    // Suit of the card. Possible values are:
-    // clubs,spades,hearts,diamonds
-    private CardSuit suit;
 
     // Getter and Setter methods
 }

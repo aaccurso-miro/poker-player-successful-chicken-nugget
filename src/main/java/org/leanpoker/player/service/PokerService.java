@@ -26,6 +26,17 @@ public class PokerService {
             }
         }
 
+
+
+        if (firstCard.getRank().ordinal() >= 9 && secondCard.getRank().ordinal() >= 9) {
+            return gameStatePOJO.getCurrent_buy_in() == 0 ? gameStatePOJO.getSmall_blind() * 4 : gameStatePOJO.getCurrent_buy_in();
+        }
+
+
+        if (firstCard.getRank().ordinal() >= 9 || secondCard.getRank().ordinal() >= 9) {
+            return gameStatePOJO.getCurrent_buy_in() == 0 ? gameStatePOJO.getSmall_blind(): gameStatePOJO.getCurrent_buy_in();
+        }
+
         return 0;
     }
 }
